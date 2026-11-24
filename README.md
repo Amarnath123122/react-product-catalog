@@ -15,8 +15,7 @@ A small, responsive and accessible React application that retrieves data from a 
 5. [Accessibility (WCAG 2.2 AA)](#accessibility-wcag-22-aa)
 6. [Responsive design](#responsive-design)
 7. [Project structure](#project-structure)
-8. [Known limitations and next steps](#known-limitations-and-next-steps)
-9. [Use of AI assistance](#use-of-ai-assistance)
+8. [Use of AI assistance](#use-of-ai-assistance)
 
 ---
 
@@ -253,17 +252,6 @@ Screen-reader text is used where visuals alone would be ambiguous, e.g. "Price: 
 │       └── icons.jsx             # X and LinkedIn SVG icons
 └── vite.config.js
 ```
-
----
-
-## Known limitations and next steps
-
-- **No automated tests yet.** The next step would be unit tests for `productQuery.js` (pure functions) and React Testing Library tests for the four UI states.
-- **Search, sort and page are not reflected in the URL.** Syncing them to query parameters would make results shareable and keep the browser Back button meaningful.
-- **Client-side querying** only suits small datasets. Large catalogs would need server-side search and paging.
-- **The cache lives in memory** and resets on reload. A library such as TanStack Query could add persistence and background refresh.
-- **The logo asset** must be added manually (see [Footer](#7-footer)).
-- **Production hosting:** none yet. GitHub Pages or Vercel would be a simple next step.
 
 ---
 
