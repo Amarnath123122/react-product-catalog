@@ -4,15 +4,6 @@ A small, responsive and accessible React application that retrieves data from a 
 
 **Repository:** https://github.com/Amarnath123122/react-product-catalog
 
-> ### Note on the data source
-> The brief asks for posts from `https://www.reddit.com/r/data/top.json?limit=12`.
-> During development the data source was **switched to [DummyJSON](https://dummyjson.com/products) at the stakeholder's request**:
-> Reddit's JSON API blocks most cross-origin browser requests (CORS) and rate-limits anonymous clients.
->
-> The architecture keeps all API-specific code in two files (`src/api/productsClient.js` and `src/services/productService.js`).
-> Switching back to Reddit only means changing those two files. The UI, hooks and query logic do not change.
-> See [Switching back to Reddit](#switching-back-to-reddit).
-
 ---
 
 ## Table of contents
@@ -24,9 +15,8 @@ A small, responsive and accessible React application that retrieves data from a 
 5. [Accessibility (WCAG 2.2 AA)](#accessibility-wcag-22-aa)
 6. [Responsive design](#responsive-design)
 7. [Project structure](#project-structure)
-8. [Switching back to Reddit](#switching-back-to-reddit)
-9. [Known limitations and next steps](#known-limitations-and-next-steps)
-10. [Use of AI assistance](#use-of-ai-assistance)
+8. [Known limitations and next steps](#known-limitations-and-next-steps)
+9. [Use of AI assistance](#use-of-ai-assistance)
 
 ---
 
@@ -263,26 +253,6 @@ Screen-reader text is used where visuals alone would be ambiguous, e.g. "Price: 
 │       └── icons.jsx             # X and LinkedIn SVG icons
 └── vite.config.js
 ```
-
----
-
-## Switching back to Reddit
-
-Only the API and service layers change.
-
-1. **`src/api/productsClient.js`:** request `https://www.reddit.com/r/data/top.json?limit=12&after=<token>`.
-   In development, use a Vite proxy to avoid CORS:
-   ```js
-   // vite.config.js
-   server: { proxy: { '/reddit': { target: 'https://www.reddit.com', changeOrigin: true,
-     rewrite: (p) => p.replace(/^\/reddit/, '') } } }
-   ```
-2. **`src/services/productService.js`:** map `data.children[].data` to the model:
-   `title → title`, `selftext → description`, `author → author`, `num_comments → comments`,
-   `https://www.reddit.com + permalink → url`.
-3. **Pagination:** Reddit uses cursor tokens (`after` / `before`) instead of offsets. Keep a stack of `after` tokens so that **Previous** can go back. An earlier version of `useProducts` implemented exactly this.
-
-The components, layout, accessibility features and state handling stay the same.
 
 ---
 
